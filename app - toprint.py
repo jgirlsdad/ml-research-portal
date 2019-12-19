@@ -1,3 +1,5 @@
+#   BACK END       BACK END     BACK END
+
 import pandas as pd 
 import csv
 import pymongo
@@ -38,7 +40,7 @@ import math
 indices = []  #  contains climate indices
 
 #  connect to MongoDB database to get climate City Climate Data
-client = pymongo.MongoClient("mongodb+srv://jgirlsdad:444jayla@cluster0-dgjk9.mongodb.net/test?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb+srv://jgirlsdad:@cluster0-dgjk9.mongodb.net/test?retryWrites=true&w=majority")
 mydb = client.climate
 mycol = mydb["monthly"]
 
