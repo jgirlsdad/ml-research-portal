@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hurricane Database</title>
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+  crossorigin=""/>
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/introjs.min.css') }}"/>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/descript.js') }}"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+  crossorigin=""></script>
+
+
+</head>
+
+<body >
+  <!-- The div where we will inject our map -->
+  <div class="grid">
+    
+      <div class="grid-item grid-item--width2 grid-item--height2">
+        <div id="infobutton">
+            <a class="btn btn-large btn-success" href="javascript:void(0);" onclick="javascript:introJs().start();">
+              <image width=65px height=25px src="static/images/button_start-here.png"></image></a>
+        </div>
+        <div data-step="1" data-intro="<b>Welcome</b> to the <b>Machine Learning Climate Research Portal</b>.  You can pefrom different <b>Machine Learning</b> tasks to determine how well some <b>Climate Indices</b> can be used to predict the <b>Climate</b> of some U.S. cities."></div>
+        <div id="city" data-step="2" data-intro="Start here by selecting the <b>CITY</b> in which you are interested"><b>Cities</b><br></div>
+        <div id="variables" data-step="3" data-intro="Next select the <b>Variable</b> of interest"><b>Variables</b><br></div>
+      </div> 
+      <div id="output"  data-step="7" data-intro="<b>Results</b> will be displayed here. This is also a fairly <b>powerful</b> tool.  You can view the <b>training,testing and prediction results</b> for each model to determine if the model is <b>over-trained</b>, or you can view the Prediction, Training or Test results for <b>all 3 models</b> compared.  This plot also compares the affects of <b>phase shifting</b> between the 3 models.  Thats not all ...  <b>Click</b> on any of the <b>points</b> in the plot to view the <b>predicted vs observed</b> model results for the selected <b>model and phase shift</b>." class="grid-item grid-item--output"><b>OutPut</b><br>
+        <div id="tsSelect"></div>
+        <div id="modelSelect"></div>
+        <div id="modelPlot"></div>
+      </div>
+     
+      <div id="map"  data-step="5" data-intro="The location and info about the different <b>Climate Indices</b> can be found here.  The geographic region for each Indices will be highlighted when you on it in the Climate Indices Selector.  Also, you can click on the <b>Geographic Regions</b> to get more info about the Climate INdicator" class="grid-item grid-item--map"></div>
+      <div id="indices"  data-step="4" data-intro="Now select the various <b>Climate Indices</b> you want to test" class="grid-item grid-item--width2 grid-item--height3"><b>Climate Indicators</b><br></div>
+      <div id="indicesPlots" class="grid-item grid-item--output2"><b>Plots</b><br>
+          
+      </div>
+      <div id="plots" class="grid-item grid-item--map" "></div>
+      <div  data-step="6" data-intro="Finally choose the <b>Machine Learning</b> technique you want to evaluate.  You can choose performing a <b>Regression</b> that will run 3 different models (Linear,SVR,Bayesian) to try and predict the actual <b>values</b> of the <b>Climate Variable</b> you chose.
+        Each of the 3 models will run over 12 different time series, with 11 of the time series being shifted by consecutive months.  You can also chose to run a <b>Neural Network</b> on a given phase shift and select the number of <b>layers</b> and <b>Nodees</b> to use. You also can try converting this problem to a <b>Classification</b> problem by either using the <b>Provide Bin based on Standard Deviations</b> or chose to bin the data by providing the number of Bins you wish to use." class="grid-item grid-item--width2 grid-item--height4">
+        <div id="regression"><b>Regression</b><br>
+          <button type="button" onclick="checkInputsAll(1)"><b>Regression</b></button>
+        </div>
+        <div style=" border: 2px solid hsla(0, 0%, 0%, 0.5);margin-top: 20px">
+          <div id="Neural" style="margin-top:15px"><b>Neural Network</b><br></div>
+          <div id="phases">Phase Shift</div>
+          <div id="layers"># of Hidden Layers</div>
+          <div id="nodes"># of Nodes</div>
+          <div id="hold">
+            <button type="button" onclick="neural()"><b>Neural Network</b></button>
+          </div>
+      </div>
+        <div style="margin-top:15px" id="regression"><b>Classification</b><br>
+          <div id="catopts"></div>
+          <div id="catslider"></div>
+          <button type="button" style="margin-top:15px" name="classify" onclick="checkInputsAll(2)"><b>Classify</b></button>
+        </div>
+
+
+
+      </div> 
+
+      <div id="tableout" class="grid-item grid-item--tableoutput" data-step="8" data-intro="Finally, the <b>results</b> of your <b>different experiments</b> will be <b>summarized</b> here.  This table will show the best <b>Predictive R2 score and at what phase shift</b> it occurs at for each model and the results of any <b>Neural Networks</b> run.  Thanks for reading... <b>please enjoy this tool!</b>"><b>SUMMARY</b><br>
+        <table style = "white-space: normal" id="outputtable" ><thead><tr><th>City</th><th>Climate Indices</th><th>Variable</th>
+          <th style="background-color:tan">Neural Net ERR</th><th style="background-color:tan">Neural Net Phase</th><th style="background-color:tan">Neural Net Layers/Nodes</th>
+          <th style="background-color: lightblue">Best SVR R2</th><th style="background-color: lightblue">Best SVR Phase</th><th style="background-color: lightblue">Best Linear R2</th><th style="background-color: lightblue">Best Linear Phase</th><th style="background-color: lightblue">Best Bayesian R2</th><th style="background-color: lightblue">Best Bayesian Phase</th>
+          <th style="background-color: lightgreen">Classification</th><th style="background-color: lightgreen"># of Bins</th> <th style="background-color: lightgreen">Best Logistic R2</th><th style="background-color: lightgreen">Best Logistic Phase</th><th style="background-color: lightgreen">Best SVC R2</th><th style="background-color: lightgreen">Best SVC Phase</th><th style="background-color: lightgreen">Best Random Forest R2</th><th style="background-color: lightgreen">Best Random Forest Phase</th></tr></thead></table>
+
+   </div>
+
+    </div>
+    
+   
+
+    
+  <script type="text/javascript" src="{{ url_for('static', filename='js/intro.min.js') }}"></script>
+ 
+  
+  <script type="text/javascript" src="{{ url_for('static', filename='js/masonry.pkgd.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+  <script src="https://unpkg.com/d3-simple-slider"></script>
+  <!-- API key -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
+  <!-- Our JS -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/logic.js') }}"></script>
+</body>
+</html>

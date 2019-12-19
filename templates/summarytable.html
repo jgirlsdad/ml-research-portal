@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hurricane Database</title>
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+  crossorigin=""/>
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/introjs.min.css') }}"/>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/descript.js') }}"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+  crossorigin=""></script>
+
+</head>
+
+<body>
+
+<div id="tableout" class="grid-item grid-item--tableoutput"><b>SUMMARY</b><br>
+           <table id="outputtable" ><thead><tr><th>City</th><th>Climate Indices</th><th>Variable</th><th>Neural Net ERR</th><th>Best SVR R2</th><th>Best SVR Phase</th><th>Best Linear R2</th><th>Best Linear Phase</th><th>Best Bayesian R2</th><th>Best Bayesian Phase</th></tr></thead></table>
+</div>
+
+</body>
+</html>

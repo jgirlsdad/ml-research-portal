@@ -1,0 +1,135 @@
+/* remove default margin and padding from body */
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* set map, body, and html to 100% of the screen size */
+#map,
+body,
+html {
+ 
+}
+
+table {
+  width: 400px;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+td {
+  max-width: 150px;
+  white-space: normal;
+}
+
+
+form label {
+  display: block;
+}
+
+.custom .leaflet-popup-tip,
+.custom .leaflet-popup-content-wrapper {
+    background: #e93434;
+    color: #ffffff;
+}
+
+/* ---- grid ---- */
+
+.grid {
+  background: white;
+  width: 1600px;
+  height: 1800px;
+  left: 20px;
+}
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.grid-item {
+  float: left;
+  width: 150px;
+  height: 150px;
+  background: white;
+  border: 2px solid hsla(0, 0%, 0%, 0.5);
+  margin-bottom: 20px;
+}
+
+.grid-stormlist {
+  background: rgb(206, 166, 166);
+  width: 200px;
+  height: 600px;
+  float: left;
+  border: 2px solid hsla(0, 0%, 0%, 0.5);
+}
+
+
+.grid-item--map { width: 600px; height: 400px }
+.grid-item--title { width: 100%,height:100px; }
+.grid-item--width2 { width: 200px; }
+.grid-item--width3 { width: 150px; }
+.grid-item--height2 { height: 250px; }
+.grid-item--height3 { height:325px; }
+.grid-item--height4 { height:400px; }
+.grid-item--widthf { width: 50%; }
+.grid-item--output { width: 600px; height: 400px }
+.grid-item--output2 { width: 600px; height: 350px }
+.grid-item--tableoutput { width: 1300px; height: 1200px }
+
+.grid-item:hover {
+  border-color: hsla(0, 0%, 100%, 0.5);
+  cursor: move;
+}
+.grid-item.is-dragging,
+.grid-item.is-positioning-post-drag {
+  background: #C90;
+  z-index: 2;
+}
+
+.stamp {
+  position: absolute;
+  background: white;
+  border: 4px dotted black;
+}
+.stamp1 {
+  right: 1%;
+  top: 10px;
+  width: 60%;
+  height: 400px;
+}
+.stamp2 {
+  right: 1%;
+  top: 450px;
+  width: 60%;
+  height: 350px;
+}
+
+
+
+
+.packery-drop-placeholder {
+  outline: 3px dashed hsla(0, 0%, 0%, 0.5);
+  outline-offset: -6px;
+  -webkit-transition: -webkit-transform 0.2s;
+          transition: transform 0.2s;
+}
+
+
+.title {
+	padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+}
+.title h4 {
+	margin: 0 0 5px;
+	color: #777;
+}
