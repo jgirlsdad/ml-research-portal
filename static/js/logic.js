@@ -23,7 +23,7 @@ var tablesummary = window.open("template/summarytable.html", "Summary", "_blank"
 tablesummary
 
 //var www_addr = "http://127.0.0.1:5000/"  // allows me to switch between running localy or via Heroku
-var www_addr = " https://ml-research-portal.herokuapp.com/"
+var www_addr = "https://ml-research-portal.herokuapp.com/"
 
 var cities = []  //  holds the list of possible cities .. extracted from MongoDB
 indices.forEach(function (data) {
